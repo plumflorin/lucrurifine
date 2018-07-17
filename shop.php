@@ -7,12 +7,51 @@
   $cat = $object->getRows("SELECT * FROM categorie");
   $photoPath = $object->photoPath();
 if (!isset($_GET['categorie'])) {
-  $rows = $object->getRows("SELECT * FROM produs");
+  if (isset($_GET['page'])) {
+      $page = $_GET['page'];
+  } else {
+      $page = "";
+  }
+  $no_of_records_per_page = 9;
+  if ($page == "" || $page == 1) {
+    $page_1 = 0;
+    } else {
+    $page_1 = ($page * $no_of_records_per_page) - $no_of_records_per_page;
+    }
+  $total_records_sql = $object->getRows("SELECT * FROM produs");
+  $total_records = count($total_records_sql);
+
+
+
+
+  $total_pages = ceil($total_records / $no_of_records_per_page);
+
+  $rows = $object->getRows("SELECT * FROM produs LIMIT $page_1, $no_of_records_per_page");
 } else {
 
   foreach ($cat as $categ) {
       if ($categ['nume_categorie'] == $_GET['categorie']) {
-        $rows = $object->getRows("SELECT * FROM produs WHERE id_categorie_produs = ?", [$categ['id_categorie']]);
+
+        if (isset($_GET['page'])) {
+            $page = $_GET['page'];
+        } else {
+            $page = "";
+        }
+
+        $no_of_records_per_page = 9;
+        if ($page == "" || $page == 1) {
+          $page_1 = 0;
+          } else {
+          $page_1 = ($page * $no_of_records_per_page) - $no_of_records_per_page;
+          }
+
+        $total_records_sql = $object->getRows("SELECT * FROM produs WHERE id_categorie_produs = ?", [$categ['id_categorie']]);
+        $total_records = count($total_records_sql);
+
+
+        $total_pages = ceil($total_records / $no_of_records_per_page);
+
+        $rows = $object->getRows("SELECT * FROM produs WHERE id_categorie_produs = ? LIMIT $page_1, $no_of_records_per_page", [$categ['id_categorie']]);
       }
 }
 }
@@ -129,15 +168,54 @@ if (!isset($_GET['categorie'])) {
                         </div>
                     </div>
                     <!-- Pagination -->
+
+
                     <nav aria-label="navigation">
                         <ul class="pagination mt-50 mb-70">
-                            <li class="page-item"><a class="page-link" href="#"><i class="fa fa-angle-left"></i></a></li>
-                            <li class="page-item"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item"><a class="page-link" href="#">...</a></li>
-                            <li class="page-item"><a class="page-link" href="#">21</a></li>
-                            <li class="page-item"><a class="page-link" href="#"><i class="fa fa-angle-right"></i></a></li>
+                          <?php
+
+                          if (isset($_GET['page'])) {
+                            $pagenr = $_GET['page'];
+                          } else {
+                            $pagenr = 1;
+                          }
+                        if ($pagenr > 1) {
+
+
+                          if (isset($_GET['categorie'])) {
+                            if (isset($_GET['page'])) {
+                              echo '<li class="page-item"><a class="page-link" href="shop.php?categorie=' . $_GET['categorie'] . '&page=' . ($pagenr -1) .'"><i class="fa fa-angle-left"></i></a></li>';
+                            }
+                          } elseif (isset($_GET['page'])) {
+                              echo '<li class="page-item"><a class="page-link" href="shop.php?page=' . ($pagenr - 1) . '"><i class="fa fa-angle-left"></i></a></li>';
+                          }
+                          }
+                              //print_r($total_pages_sql);
+                              for ($i=1; $i<=$total_pages ; $i++) {
+                                if (isset($_GET['categorie'])) {
+
+                                  echo '<li class="page-item"><a class="page-link" href="shop.php?categorie=' . $_GET['categorie'] . '&page=' . $i .'">' . $i . '</a></li>';
+                                } else {
+                                  echo '<li class="page-item"><a class="page-link" href="shop.php?page=' . $i .'">' . $i . '</a></li>';
+                                }
+                              }
+
+
+                            if ($pagenr <$total_pages) {
+
+                              if (isset($_GET['categorie'])) {
+                                if (isset($_GET['page'])) {
+                                  echo '<li class="page-item"><a class="page-link" href="shop.php?categorie=' . $_GET['categorie'] . '&page=' . ($_GET['page'] + 1) .'"><i class="fa fa-angle-right"></i></a></li>';
+                                } else {
+                                  echo '<li class="page-item"><a class="page-link" href="shop.php?categorie=' . $_GET['categorie'] . '&page=2"><i class="fa fa-angle-right"></i></a></li>';
+                                }
+                              } elseif (isset($_GET['page'])) {
+                                  echo '<li class="page-item"><a class="page-link" href="shop.php?page=' . ($_GET['page'] + 1) . '"><i class="fa fa-angle-right"></i></a></li>';
+                              } else {
+                                echo '<li class="page-item"><a class="page-link" href="shop.php?page=2"><i class="fa fa-angle-right"></i></a></li>';
+                              }
+                            }
+                            ?>
                         </ul>
                     </nav>
                 </div>
