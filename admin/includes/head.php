@@ -1,4 +1,20 @@
+<?php session_start(); ?>
 <?php ob_start(); ?>
+
+<?php
+
+if (isset($_SESSION['username'])) {
+  if ($_SESSION['username'] !== 'mihaela') {
+    header ("location: ../index.php");
+    exit();
+  }
+}
+if (!isset($_SESSION['username'])) {
+  header ("location: ../index.php");
+  exit();
+}
+
+ ?>
 
 <!DOCTYPE html>
 <html lang="en">
