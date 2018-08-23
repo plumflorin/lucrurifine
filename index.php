@@ -48,8 +48,8 @@
 
                               $pret = $row['pret_produs'];
                               $pret_modif = str_replace('.', ',', $row['pret_produs']) . " LEI";
-                              $pret_redus = $row['pret_redus_produs'];
-                              $pret_redus_modif = str_replace('.', ',', $row['pret_redus_produs']) . " LEI";
+                              $pret_vechi = $row['pret_vechi_produs'];
+                              $pret_vechi_modif = str_replace('.', ',', $row['pret_vechi_produs']) . " LEI";
 
 
                               $descriere_produs = $row['descriere_produs'];
@@ -69,19 +69,18 @@
 
                                 $imagine1 = $rows['0']['nume_imagine'];
                                 $imagine2 = $rows['1']['nume_imagine'];
-
-
-                                 echo '<img src="' . $photoPath . $imagine1 .'" alt="">';
-
-                                 //<!-- Hover Thumb -->
-                                echo '<img class="hover-img" src="' . $photoPath . $imagine2 .'" alt="">';
-
                                 ?>
+                                <a href="single-product.php?p_id=<?php echo $id_produs; ?>"><img src="<?php echo $photoPath; ?><?php echo $imagine1; ?>" alt=""></a>
+
+                                 <!-- Hover Thumb -->
+                                <a href="single-product.php?p_id=<?php echo $id_produs; ?>"><img class="hover-img" src="<?php echo $photoPath; ?><?php echo $imagine2; ?>" alt=""></a>
+
+
                                  <!-- Product Badge -->
 
                                 <?php
-                                    if (($pret_redus > 0)) {
-                                      $percent = ($pret - $pret_redus) / $pret * 100;
+                                    if ($pret_vechi > 0) {
+                                      $percent = ($pret_vechi - $pret) / $pret_vechi * 100;
                                         echo '<div class="product-badge offer-badge">';
                                             echo "<span>-".round($percent)."% </span>";
                                         echo "</div>";
@@ -94,14 +93,12 @@
                             <!-- Product Description -->
                             <div class="product-description">
                                 <span><?php echo $nume_produs; ?></span>
-                                <a href="single-product-details.html">
                                     <h6><?php echo $descriere_produs; ?></h6>
-                                </a>
-
-                                <?php  if ($pret_redus == 0) {
+                                <?php
+                                if ($pret_vechi < 1) {
                                   echo '<p class="product-price">'.$pret_modif.'</p>';
-                                } elseif ($pret_redus > 0) {
-                                  echo '<p class="product-price"><span class="old-price">'.$pret_modif.'</span>'. $pret_redus_modif.'</p>';
+                                } elseif ($pret_vechi > 0) {
+                                  echo '<p class="product-price"><span class="old-price">'.$pret_vechi_modif.'</span>'. $pret_modif.'</p>';
                                 }
 
                                 ?>
@@ -109,7 +106,7 @@
                                 <div class="hover-content">
                                     <!-- Add to Cart -->
                                     <div class="add-to-cart-btn">
-                                        <a href="#" class="btn essence-btn">Add to Cart</a>
+                                        <!-- <a href="#" class="btn essence-btn">Add to Cart</a> -->
 
 
                                     </div>

@@ -29,7 +29,7 @@
             <input class="form-control"type="text" name="titlu_categorie">
           </div>
           <div class="form-group">
-            <input class="btn btn-primary"type="submit" name="submit" value="Add Category">
+            <input class="btn btn-primary" type="submit" name="submit" value="Add Category">
           </div>
 
           <?php

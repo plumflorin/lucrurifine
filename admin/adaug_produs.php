@@ -11,8 +11,8 @@
 if (isset($_POST['creare_produs'])) {
     $nume_produs = $_POST['titlu'];
     $categorie_produs = $_POST['categorie_produs'];
-    $pret_produs = $_POST['pret_produs'];
-    $pret_redus_produs = $_POST['pret_redus_produs'];
+    $pret = $_POST['pret_produs'];
+    $pret_vechi = $_POST['pret_vechi_produs'];
     $descriere = $_POST['descriere'];
     $status = $_POST['status'];
     //$image =$_FILES['files']['name'];
@@ -21,8 +21,8 @@ if (isset($_POST['creare_produs'])) {
     $object = new Produs();
     $photoPath = $object->photoPath();
     $row = $object->insertRow ("INSERT INTO produs
-                            (nume_produs, pret_produs, pret_redus_produs, descriere_produs, id_categorie_produs, status_produs)
-                            VALUES (?, ?, ?, ?, ?, ?)", [$nume_produs, $pret_produs, $pret_redus_produs, $descriere, $categorie_produs, $status]);
+                            (nume_produs, pret_produs, pret_vechi_produs, descriere_produs, id_categorie_produs, status_produs)
+                            VALUES (?, ?, ?, ?, ?, ?)", [$nume_produs, $pret, $pret_vechi, $descriere, $categorie_produs, $status]);
 
     $last_inserted_id = $object->lastInsertId();
     //var_dump ($last_inserted_id);
@@ -90,9 +90,9 @@ if (isset($_POST['creare_produs'])) {
   </div>
 
   <div class="form-group row">
-    <label class="col-form-label col-sm-2" for="title">Pret Redus</label>
+    <label class="col-form-label col-sm-2" for="title">Pret Vechi</label>
     <div class="col-sm-5">
-      <input type="text" class="form-control" name="pret_redus_produs">
+      <input type="text" class="form-control" name="pret_vechi_produs">
     </div>
   </div>
 
