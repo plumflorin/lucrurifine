@@ -42,9 +42,9 @@
 
 
         <!-- ##### Single Widget ##### -->
-        <div class="widget color mb-50">
+        <!-- <div class="widget color mb-50"> -->
             <!-- Widget Title 2 -->
-            <p class="widget-title2 mb-30">Color</p>
+            <!-- <p class="widget-title2 mb-30">Color</p>
             <div class="widget-desc">
                 <ul class="d-flex">
                     <li><a href="#" class="color1"></a></li>
@@ -58,8 +58,8 @@
                     <li><a href="#" class="color9"></a></li>
                     <li><a href="#" class="color10"></a></li>
                 </ul>
-            </div>
-        </div>
+            </div> -->
+        <!-- </div> -->
 
 
     </div>

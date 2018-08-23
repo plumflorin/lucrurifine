@@ -43,7 +43,7 @@
             <th>Id</th>
             <th>Nume</th>
             <th>Pret</th>
-            <th>Pret Redus</th>
+            <th>Pret Vechi</th>
             <th>Descriere</th>
             <th>Imagine</th>
             <th>Categorie</th>
@@ -62,7 +62,7 @@
                   $id_produs = $row['id_produs'];
                   $nume_produs = $row['nume_produs'];
                   $pret_produs = $row['pret_produs'];
-                  $pret_redus_produs = $row['pret_redus_produs'];
+                  $pret_vechi = $row['pret_vechi_produs'];
                   $descriere_produs = $row['descriere_produs'];
                   $id_categorie_produs = $row['id_categorie_produs'];
                   $data_adaugare_produs = $row['data_adaugare_produs'];
@@ -79,7 +79,7 @@
             <td><?php echo $id_produs; ?></td>
             <td><a href="../single-product.php?p_id=<?php echo $id_produs; ?>"><?php echo $nume_produs; ?></a></td>
             <td><?php echo $pret_produs; ?></td>
-            <td><?php echo $pret_redus_produs; ?></td>
+            <td><?php echo $pret_vechi; ?></td>
             <td><?php echo $descriere_produs; ?></td>
             <td>
               <?php

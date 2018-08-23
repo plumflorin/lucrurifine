@@ -1,4 +1,9 @@
 <?php include "app/class.produs.php"; ?>
+<?php
+if (empty($_SESSION['cart'])) {
+  $_SESSION['cart'] = array();
+}
+  ?>
 
 <header class="header_area">
     <div class="classy-nav-container breakpoint-off d-flex align-items-center justify-content-between">
@@ -46,7 +51,7 @@
           </div>
             <!-- Cart Area -->
             <div class="cart-area">
-                <a href="#" id="essenceCartBtn"><img src="img/core-img/bag.svg" alt=""> <span>3</span></a>
+                <a href="#" id="essenceCartBtn"><img src="img/core-img/shopping_cart36dp.png" alt=""> <span><?php echo count($_SESSION['cart']); ?></span></a>
             </div>
         </div>
 

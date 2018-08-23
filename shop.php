@@ -86,7 +86,7 @@ if (!isset($_GET['categorie'])) {
                                         <p><span>186</span> products found</p>
                                     </div> -->
                                     <!-- Sorting -->
-                                    <div class="product-sorting d-flex">
+                                    <!-- <div class="product-sorting d-flex">
                                         <p>Sort by:</p>
                                         <form action="#" method="get">
                                             <select name="select" id="sortByselect">
@@ -97,7 +97,7 @@ if (!isset($_GET['categorie'])) {
                                             </select>
                                             <input type="submit" class="d-none" value="">
                                         </form>
-                                    </div>
+                                    </div> -->
                                 </div>
                             </div>
                         </div>
@@ -107,8 +107,12 @@ if (!isset($_GET['categorie'])) {
                           foreach ($rows as $row) {
                             $id_produs = $row['id_produs'];
                             $nume_produs = $row['nume_produs'];
-                            $pret_produs = $row['pret_produs'];
-                            $pret_redus_produs = $row['pret_redus_produs'];
+
+                            $pret = $row['pret_produs'];
+                            $pret_modif = str_replace('.', ',', $row['pret_produs']) . " LEI";
+                            $pret_vechi = $row['pret_vechi_produs'];
+                            $pret_vechi_modif = str_replace('.', ',', $row['pret_vechi_produs']) . " LEI";
+
                             $descriere_produs = $row['descriere_produs'];
                             $id_categorie_produs = $row['id_categorie_produs'];
                             $data_adaugare_produs = $row['data_adaugare_produs'];
@@ -133,33 +137,31 @@ if (!isset($_GET['categorie'])) {
 
                                          <!-- Product Badge -->
                                         <?php
-                                            if (($pret_redus_produs > 0)) {
-                                              $percent = ($pret_produs - $pret_redus_produs) / $pret_produs * 100;
-                                                echo '<div class="product-badge offer-badge">';
-                                                    echo "<span>-".round($percent)."% </span>";
-                                                echo "</div>";
-                                            }
+                                        if ($pret_vechi > 0) {
+                                          $percent = ($pret_vechi - $pret) / $pret_vechi * 100;
+                                            echo '<div class="product-badge offer-badge">';
+                                                echo "<span>-".round($percent)."% </span>";
+                                            echo "</div>";
+                                          }
                                             ?>
                                     </div>
 
                                     <!-- Product Description -->
                                     <div class="product-description">
                                         <span><?php echo $nume_produs; ?></span>
-                                        <a href="single-product-details.html">
                                             <h6><?php echo $descriere_produs; ?></h6>
-                                        </a>
-                                        <?php  if ($pret_redus_produs == 0) {
-                                          echo '<p class="product-price">'.$pret_produs.'</p>';
-                                        } elseif ($pret_redus_produs > 0) {
-                                          echo '<p class="product-price"><span class="old-price">'.$pret_produs.'</span>'. $pret_redus_produs.'</p>';
+                                        <?php
+                                        if ($pret_vechi < 1) {
+                                          echo '<p class="product-price">'.$pret_modif.'</p>';
+                                        } elseif ($pret_vechi > 0) {
+                                          echo '<p class="product-price"><span class="old-price">'.$pret_vechi_modif.'</span>'. $pret_modif.'</p>';
                                         }
+
                                         ?>
                                         <!-- Hover Content -->
                                         <div class="hover-content">
                                             <!-- Add to Cart -->
-                                            <div class="add-to-cart-btn">
-                                                <a href="" class="btn essence-btn">Add to Cart</a>
-                                            </div>
+
                                         </div>
                                     </div>
                                 </div>
